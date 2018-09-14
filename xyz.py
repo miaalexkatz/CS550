@@ -6,8 +6,8 @@ x = float(sys.argv[1])
 y = float(sys.argv[2])
 z = float(sys.argv[3])
 if x < y < z:
-	print("True")
+	print("True, the numbers are in order")
 elif z < y < x:
-	print("True")
+	print("True, the numbers are in reverse order")
 else:
 	print("False")
