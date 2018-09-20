@@ -19,10 +19,6 @@ elif 1 <= grade:
 else:
     a = str("F")
 
-
-
-
-
 if (grade < 4 and (.85 <= ten and ten < .2)) or (4.7<=grade<4.85) or (1.5<=grade<2):
     b = str(" ")
 elif (grade >= 4.85) or ((grade > 2) and (.2 <= ten < .5)) or (2 <= grade < 2.5):
