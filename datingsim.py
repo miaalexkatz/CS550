@@ -90,8 +90,8 @@ def pickup():
 
 def school():
     result = input("""
-    You open the door to your homeroom. It's pretty empty. Only three people are here!
-    Lucky for you, they're three of the most popular, (and attractive). 
+    You open the door to your homeroom. Only three people are here!
+    Lucky for you, they're popular and available 
 
     First, there's James, a classic guy who plays football in his spare time.
     He's scrolling through his messages on his phone 
@@ -102,32 +102,55 @@ def school():
     And lastly, there's Mango. They're the trendiest of the three, with new gadgets
     They have some device in their hand, but you honestly have no idea what it is.
 
-    But there's only time to talk to one of them before class. Who?
-    1) James
-    2) Harper
-    3) Mango
-    4) I'm fine being anti-social 
+    Mango and an empty desk are on the right.
+    James and Harper are on the left side of the room.
+
+    Where do you go?
+    1) Left (James and Harper)
+    2) Right (Mango and Being Anti Social)
+
     	""")
     while result != '1' and result!= '2':
-        while result!= '3' and result!= '4' :
             result = input("That's not valid, try again! >> ")
     if result == '1':
-        james()
+        left()
     elif result == '2':
-        print("fix")
-    elif result == '3':
-        print("alsofix")
-    else:
-    	print("You really sure about that?")
-    	truth()
+        right()
+
+def left():
+	result = input("""Alright, who are you talking to? 
+		1)James or 
+		2)Harper?
+
+		>> """)
+	while result != '1' and result!= '2':
+		result = input("That's not valid, try again! >> ")
+	if result == '1':
+		james()
+	elif result == '2':
+		harper()
+
+def right():
+	result = input("""Now's your chance to 
+		1)Talk to Mango or 
+		2) Be anti-social!
+
+		It's not up to me!
+		>> """)
+	while result != '1' and result!= '2':
+		result = input("That's not valid, try again! >> ")
+	if result == '1':
+		mango()
+	elif result == '2':
+		truth()
+
 def james():
     input("""
     	James seems to be pretty busy with that phone of his. It's up to you to make the first move.
 
     	What are you going to do?
-    	1) Compliment him
-    	2) Ask about who he's texting
-    	3) Congratulate him on the football team win
+    	1) Ask about his college plans
+    	2) Congratulate him on the football team win
      
      >> """)
 
@@ -148,7 +171,6 @@ def harper():
 	What dd you recommend to her?
 	1) A day-old single from one of your favorite bands
 	2) Your favorite 2011 radio hit
-	3) Some weird techno beat you heard Mango discovered
 		
     >> """)
 
@@ -159,7 +181,6 @@ def mango():
 
     What are you going to say to them?
     1) Ask about the weird device
-    2) Ask about last night's homework
     3) Ugh. Who cares, they already ignored you once so what's the use?
 		
 	>>	""")
@@ -168,7 +189,7 @@ def mango():
 	if result == '1':
 		mdevice()
 	elif result == '2':
-		mhomework()
+		mignore()
     #elif result == '3':
        # mdevice()
 
@@ -186,12 +207,8 @@ def mdevice():
     You pick:
     1) Messages
     2) Face Scanner 3D Model Replica
-    3) Internet Superhighway Version 19
 
 	>>	""")
-
-def mhomework():
-	print("They tell you they didn't think it was all that difficult.")
 
 def truth():
     result = input("""
