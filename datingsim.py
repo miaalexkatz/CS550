@@ -1,7 +1,9 @@
-#def check(result,1,2):
- #   while result!=1 and result!=2:
-  #  	result = input("Please pick an actual option! >> ")
-   # return resul
+# Mia Katz
+# 9.24.18
+# Text Based Adventure Game
+#Description: The Winter Ball is in two days, and you still haven't found someone to go with yet! Luckily, you know three (and definitely only three, nobody else) attractive (and single) people who are conveniently in your homeroom! Can you persuade a someone into asking you out???? Welcome to DatingSim.py! There are four different endings, can you collect them all?
+# Sources: All of the text art is from patorjk.com, but the heart is from fsymbols.com. Special thanks to Caroline Huber for playing this during her free block
+#On my honor, I have neither given nor received unauthorized aid
 
 def name():
 	input("""
@@ -13,21 +15,22 @@ def name():
 ..@*……………@* ………………@*……..@*
 .@*……………….@*……….@*……………..@*
 @*…………………..@*…@*………………….@*
-@*………………………*……………………..@*
-.@*…………………………………………….@*
+@*………………………*…………………….. @*
+.@*……………………………………………. @*
 ..@*………………………………………..@*
 ….@*…………………………………..@*
 ……..@*…………………………..@*
-………..@*……………………@*
+………..@*…………………… @*
 …………….@*…………..@*
-……………….@*……@*
-………………….*@*
+……………….@*…… @*...........
+………………….*@*..............
 
 now with FOUR DIFFERENT ENDINGS!!!!
 Press Enter to Start!
 		""")
 	start()
 
+# this is the intro to the game
 def start():
     result = input("""
 Location: Nova High School Hallways
@@ -42,8 +45,6 @@ What do you wish to do?
 1) Go over to the cluster
 2) Go to class
 >>  """)
-
-    #if check(result,1,2) == 1:
     while result != '1' and result!= '2' :
     	result = input("That's not valid, try again! >> ")
     if result == '1':
@@ -51,6 +52,7 @@ What do you wish to do?
     elif result == '2':
         school()
 
+#the lead between the start and reading the ball poster
 def hall():
     result = input("""
 You make your way through the hallway, accidentally knocking over some freshman. 
@@ -67,7 +69,7 @@ What do you wish to do?
         pickup()
     elif result == '2':
         school()
-
+#The poster for the ball, leads into main class scene
 def pickup():
     result = input("""
     . , , . ,-. |- ,-. ,-.   |-. ,-. |  |  
@@ -103,6 +105,7 @@ Sadly, the hall monitor caught you. You're lucky to avoid detention.
         	""")
         school()
 
+       #MAIN CLASS SCENE
 def school():
     result = input("""
 Location: Nova High School: Room 103
@@ -138,7 +141,7 @@ Where do you go?
         left()
     elif result == '2':
         right()
-
+#division into james and harper routes
 def left():
 	result = input("""
 Alright, who are you talking to? 
@@ -153,7 +156,7 @@ Alright, who are you talking to?
 		james()
 	elif result == '2':
 		harper()
-
+#division into mango and other route
 def right():
 	result = input("""
 Now's your chance to 
@@ -169,7 +172,7 @@ It's not up to me!
 		mango()
 	elif result == '2':
 		truth()
-
+#james route, leads from left()
 def james():
     result = input("""
 James seems to be pretty busy with that phone of his. It's up to you to make the first move.
@@ -185,7 +188,7 @@ What are you going to do?
     	college()
     elif result == '2':
     	football()
-
+#negative james route, leads to lonely() 
 def college():
 	print("""
 You kindly ask him if he's thinking about college overseas.
@@ -195,9 +198,12 @@ And he's kind of upset.
 "Do you have something against our home??? OUR PRESIDENT?????"
 
 You back up slowly. Oh god, what was that....
-		""")
-	lonely()
+		
+It's too bad humans are like that...
 
+you don't need a boy to have a nice time at a dance now, do you?""")
+	lonely()
+#leads into positive james 
 def football():
 	result = input("""
 "Hey, thanks," he smiles. It's a cute smile.
@@ -211,6 +217,7 @@ What do you think is the best part?
 2) Nachos.
 	
 >>	""")
+#this leads inot both game scene and improv scene
 	while result != '1' and result != '2':
 		result = input("That's not valid, try again! ")
 	if result == '1':
@@ -239,7 +246,7 @@ Whatever. You should probably avoid football at all costs.
 how about improv?
     """)
 		improv()
-
+#main harper route, can lead to all endings
 def harper():
 	result = input("""
 Though Harper is listening to music, she immediately notices you and removes her headphones.
@@ -266,7 +273,7 @@ What dd you recommend to her?
 		hpop()
 	elif result == '2':
 		h2011()
-
+#mango intro, leads to improv
 def mango():
 	result = input("""
 Mango sees you approach, and acknowledges you with a smile. 
@@ -283,16 +290,26 @@ What are you going to say to them?
 		mdevice()
 	elif result == '2':
 		mignore()
-
+#
 def mignore():
 	print("""
 Mango noticed you didn't smile back. If they're hurt, they aren't showing it well. 
 Maybe they're too cool for that, you think. But whatever. Class is starting.
+.
+.
+.
+.
+.
+
+you'll be okay... 
+I'm still here for you...
+
+all of these other characters are overrated anyways...
 
 	""")
 	lonely()
 
-
+#positive mango route
 def mdevice():
 	result = input("""
 You ask Mango about their device. It's an iPhone !. Apple abandoning numbers?? That sounds crazy!
@@ -311,7 +328,7 @@ You pick:
 		messages()
 	elif result == '2':
 		mangoevent()
-
+#leads to improv, from device 
 def mangoevent():
 	result = input("""
 "Oh my god... that's the newest addition!!!!" they exclaim.
@@ -333,7 +350,7 @@ What do you say?
 		improv()
 	elif result == '2':
 		game()
-
+#if you get here you honestly deserve a bad ending cause you need to respect others... leads to football game
 def messages():
     print("""
 "What... the hell... is wrong with you!" Mango screams, taking their phone.
@@ -342,7 +359,7 @@ Especially since you don't have a date yet.
 Maybe you'll have better luck finding someone at football!
     	""")
     game()
-
+#leads to the football game
 def h2011():
 	result = input("""
 Harper looks a bit dissatisfied. 
@@ -357,7 +374,7 @@ Until James taps you on the shoulder and invites you to the football game!
 It's not like you have anything better to do.""")
 	game()
 
-
+#leads to improv/goodend
 def hpop():
 	result = input(""" 
 Harper exclaims that she's never heard of such a group before! 
@@ -380,7 +397,7 @@ Oh well... time for class.
 
 	""")
 		lonely()
-
+#improv segway
 def hinvite():
 	print("""
 "Awesome! I have an improv troupe tomorrow night!" she responds, smiling,
@@ -389,7 +406,7 @@ You tell her you're going to check it out.
 It's not like you have anything else to do.
 	""")
 	improv()
-
+#MAIN FOOTBALL GAME leads to harper, badend and james 
 def game():
 	result = input("""
 Location: Nova High School Fields
@@ -403,7 +420,7 @@ But you're here now! And you bought nachos.
 
 You sit alone through most of the game, until someone you know shows up.
 
-It's Harper, and the football game must have ended.
+It's Harper, since the improv show must have ended.
 
 Wanna go talk to her?
 1) Yeah, I'm kinda lonely
@@ -416,7 +433,7 @@ Wanna go talk to her?
 		harpergame()
 	elif result == '2':
 		jamesgame()
-
+#from game(), to harper and badend()
 def harpergame():
 	result = input("""
 Harper is surprised to see you here, but happy nonetheless!
@@ -441,7 +458,7 @@ BUT QUICK! Now's your chance!
 		badend()
 	elif result == '2':
 		askherout()
-
+#harper good ending
 def askherout():
 	print("""
 "Maybe you'd want to go to the dance with me?"
@@ -475,7 +492,7 @@ And she says yes.
 
 THE END
 	""") 
-
+#james asking out, neither ending is that good
 def jamesgame():
 	result = input("""
 After the game, you down to the field. There he is! It's James!
@@ -499,7 +516,7 @@ You ask for clarification.
 		jyes()
 	elif result == '2':	
 		jno()
-
+#james ending... not the best
 def jyes():
 	print("""
 Location: Nova High School Cafeteria
@@ -530,6 +547,7 @@ The best revenge is a life well lived
 
 THE END
 		""")
+#leads to badend but at least the narrator isn't a trashy person
 def jno():
 	result = input("""
 You reject him. He's devastated.
@@ -549,7 +567,7 @@ What now?
 		result = input ("no. >> ")
 	if result == '3':
 		badend()
-
+#IMPROV MAIN DIVIDEND
 def improv():
 	result = input("""
 Location: Nova High School Auditorium
@@ -574,7 +592,7 @@ Do you want to sit with them?
 		mimprov()
 	elif result == '2':
 		himprov()
-
+#mango's divide from improv
 def mimprov():
 	result = input("""
 Mango has a nice tub of popcorn with extra butter with them.
@@ -599,6 +617,7 @@ What do you even respond to that?
 		babysitting()
 	elif result == '2':
 		responsibility()
+#leads to mango asking out
 def babysitting():
 	result = input("""
 Yeah, you're not totally sure why you chose to go to the park.
@@ -635,7 +654,7 @@ You're not falling for someone else, right?
 Someone who wouldn'nt ever desert you? Who's been here the whole time?
 			""")
 		badend()
-
+#mango ending, pretty good
 def myes():
 	print("""
 They smile back, take your hand, and walk you home.
@@ -663,10 +682,11 @@ Even though you enjoyed all of your dates, you realize that spark is gone.
 But it's okay, and you keep a close friendship throughout your adult lives.
 You even give a speech at their wedding!
 
-Even though things didn't work out romantically, you still treasure their company
+Even though things didn't work out romantically, you still treasure the company
 
 THE END
 		""")
+#badend ending
 def responsibility():
 	result = input("""
 "Yeah... you're probably right..." they answer. 
@@ -686,7 +706,7 @@ But now what do you do?
 	if result == '3':
 		print("yay! you picked ME! :)")
 		badend()
-
+#leads to askherout aka best ending
 def himprov():
 	result = input("""
 And with that, you're sitting alone...
@@ -723,7 +743,7 @@ But what do you do now?
 			badend()
 	elif result == '2':
 		askherout()
-
+#if you really messed up in the first scene, you'll end here
 def lonely():
 	print(""" 
 Location: Nova High School Parking Lot
@@ -734,7 +754,7 @@ Ugh. You were about to drive home, when your car decides to break down.
 So now you're stuck here.
 Might as well make the best of it and talk to me... """)
 	badend()
-
+#the not very good ending which mostly means you failed
 def badend():
 	result = input("""
 I know I'm not the most desirable kid here...
@@ -760,7 +780,7 @@ Choose wisely.
 		result = input("u n a c c e p t a b l e. >> ")
 	if result == '1':
 		fty()
-
+#the inputs here mean nothing. you have no control, but it's okay.
 def fty():
 	input("""
 
@@ -818,7 +838,7 @@ just say it... i know you want to
 >>  """)
 
 	print("Yes! Yes, I'll marry you! We'll be together!!!! for-e-ver ;) THE END!!!!!!!!!!!!!!")
-
+#truth or dare segment
 def truth():
     result = input("""
 Oh... okay. Well, you're not sitting here doing nothing. 
@@ -830,7 +850,6 @@ Wanna play a game?
 
     if result == '2':
     	result = input("""
-
 fine... I see how it is. We're not friends.
 Just leave me alone. I'm hurt. I'm done personalizing this question.
 
@@ -882,7 +901,7 @@ They're both at the same time, though
     		elif result == '2':
     			improv()
     	else:
-    		print("fine, I'll live. But you've disappointed me. That's sad...")
-    		onely()
-
+    		print("fine, I'll live. But you've disappointed me. That's sad... just leave me alone, I don't know go to improv or something")
+    		improv()
+#*slaps roof of function* this bad boy can fit so many game start screens in it
 name()
