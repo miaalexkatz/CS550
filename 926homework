@@ -1,0 +1,9 @@
+import random
+t[]
+for i in range(10):
+	t.append(random.randrange(100))
+t[:: -1]
+for i in range(10)
+	if t[i]%3 == 0:
+		t.remove
+print(t)
