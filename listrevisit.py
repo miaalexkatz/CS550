@@ -12,3 +12,4 @@ print(k)
 
 for x in range(len(k)):
 	print(*k[x])
+#star gets rid of brakcet notation
