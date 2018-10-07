@@ -1,5 +1,3 @@
-#Mia Katz
-#Minesweeper Board Homework
 import random as rd
 global width 
 global bombcount
@@ -42,21 +40,22 @@ global ex, xa, yb, xc, yc
 ex = [['X'] * width for x in range(height)]
 for x in range(len(ex)):
 	print(*ex[x])
+for x in range(len(t)):
+	print(*t[x])
+
 
 def coord():
 	global ex, xa, yb, xc, yc, otherbomb, bombcount
-	xa = int(input("Enter ROW NUMBER >> "))
-	xc = xa-1
-	yb = int(input("Enter COLUMN NUMBER >> "))
-	yc = yb-1
-	if type(t[xa][yb]) == str:
+	xc = int(input("Enter ROW NUMBER >> "))
+	yc = int(input("Enter COLUMN NUMBER >> "))
+	if type(t[xc][yc]) == str:
 		r = [['*']*width for x in range(height)]
 		print("Game Over! Sorry, you lost...")
 		for x in range(len(r)):
 			print(*r[x])
 	else: 
 		print(otherbomb)
-		ex[xc][yc] = t[xa][yb]
+		ex[xc][yc] = t[xc-1][yc-1]
 		if ex[xc][yc] == 0:
 			expand()
 		else:
@@ -85,47 +84,30 @@ def flag():
 	ro = int(input("Which ROW? >>"))-1
 	co = int(input("Which COLUMN? >>"))-1
 	ex[ro][co] = str('!')
-	if type(t[ro+1][co+1]) == str:
+	if type(t[ro][co]) == str:
 		bombcount -= 1
 	for x in range(len(ex)):
 		print(*ex[x])
 	coord()
 
-def expand():
-	global otherbomb, xd, yd, xe, ye
+def expand(xc, yc):
+	global otherbomb
 	print("in expand")
 	for x in range(-1, 2):
 		for y in range(-1, 2):
-			ex[xc+x][yc+y] = t[xa+x][yb+y]
+			ex[xc+x][yc+y] = t[xc+x][yc+y]
 			if x != 0 and y != 0:
 				otherbomb -= 1
 			print(otherbomb)
-
-
-
-				#xe =xa+x
-				#ye = yb+y
-				#xd = xc +x
-				#yd = yc+y
-				#expandtwo()
-
-#def expandtwo():
-#	global otherbomb, xd, yd, xe, ye
-#	print("in expand")
-#	for x in range(-1, 2):
-#		for y in range(-1, 2):
-#			ex[xd][ye] = t[xe][ye]
-#			otherbomb -= 1
-#			print(otherbomb)
-#	for x in range(-1, 2):
-#		for y in range(-1, 2):
-#			if t[xe][ye] == 0:
-#				xa = xe+x
-#				yb = ye+x
-#				xc = xd+x
-#				yc = yd+y
-#				expand()
+			if ex[xc+x][yc+y] == 0:
+				xc +=x
+				yc +=y
+				for x in range(-1, 2):
+					for y in range(-1, 2):
+						ex[xc+x][yc+y] = t[xc+x][yc+y]
+						if x != 0 and y != 0:
+							otherbomb -= 1
+						if t[xc+x][yc+y] == 0:
+							expand(xc+x, yc+y)
 
 coord()
-
-#note: fix winning, since it will repeat for zeroes if re-called
