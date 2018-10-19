@@ -1,30 +1,24 @@
 from PIL import Image
-imgx = 512
-imgy = 512
+
+xa, xb = -2.0, 2.0
+ya, yb = -2.0, 2.0
+
+imgx, imgy = 512, 512
+
+maxIt = 256
 
 image = Image.new("RGB", (imgx, imgy))
 
-for x in range(imgx):
-	for y in range(imgy):
-		checks = 0
-		cx = ((x/imgx)*4)-2
-		cy = ((y/imgy)*4)-2
-		zx = 0
-		zy = 0
-		for i in range(256):
-			valuez = (zx**2)-(zy**2) 
-			valuey = 2*zx*zy 
-			ezx = valuez + cx
-			ezy = valuey + cy
-			if ((ezx**2)+(ezy**2))**(1/2) >= 2:
-				image.putpixel((x,y), (50, checks, 50))
+for y in range(imgy):
+	cy = y * (yb-ya)/(imgy-1) + ya
+	for x in range(imgx):
+		cx = x * (xb-xa)/(imgx-1) + xa
+		c = complex(cx, cy)
+		z = 0
+		for i in range(maxIt):
+			if abs(z) >= 2.0:
 				break
-			if checks == 255:
-				image.putpixel((x,y), (50, checks, 50))
-				break
-			else:
-				zx = valuez
-				zy = valuey
-				checks += 1
+			z = z**2 + c
+		image.putpixel((x,y), (0, i, 50))
 
-image.save("ruby.png", "PNG")
+image.show()
