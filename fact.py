@@ -21,6 +21,7 @@ print("number of xs:",countx(use))
 eight = input("enter whatever the heck you want: ")
 global ecount 
 ecount = 0
+
 def eco(ei):
 	global ecount
 	val = "hi"
@@ -34,6 +35,11 @@ def eco(ei):
 	return ecount
 print("crazy eights:",eco(eight))
 
-eu = input("first for gcd")
-eu2 = input("next for gcd")
-g
+def crazyeight(n):
+	if n == 0:
+		return 0
+	if n%10 == 8:
+		if n%100 == 88:
+			return 2 + crazyeight(n//10)
+		return 1 + crazyeight(n//10)
+	
