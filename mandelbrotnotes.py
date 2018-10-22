@@ -1,7 +1,7 @@
 from PIL import Image
 
-xa, xb = -2.0, 2.0
-ya, yb = -2.0, 2.0
+xa, xb = -1.773660804, -1.7736607983
+ya, yb = 0.0063128809733, 0.006312884305
 
 imgx, imgy = 512, 512
 
@@ -19,6 +19,6 @@ for y in range(imgy):
 			if abs(z) >= 2.0:
 				break
 			z = z**2 + c
-		image.putpixel((x,y), (0, i, 50))
+		image.putpixel((x,y), ((i*12)%256, i, (i*86)%256))
 
 image.show()
