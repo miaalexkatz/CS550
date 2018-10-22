@@ -4,7 +4,7 @@
 #Sources: https://lodev.org/cgtutor/juliamandelbrot.html for learning what the Julia set actually is
 
 from PIL import Image
-
+import colorsys
 xa, xb = 0.3038888888, 0.35888888
 ya, yb = 0.545, 0.6
 jxa, jxb = -0.6, 0.4
@@ -37,33 +37,25 @@ for y in range(imgy):
 			image.putpixel((x, y), ((i*12)%256, i, (i*86)%256))
 print("Mandelbrot 1 Complete")
 
-
-for x in range(imgx):
-	jx = 1.5*(x - imgx/2)/(0.5*5*imgx) + 7
-	for y in range(imgy):
-		jy = 1.1*(y -imgy/2)/(imgy*0.5*5) + 8
-		j = complex(jx, jy)
+d = 0.2314190881763527 
+e = - 0.5322770541082162
+c = complex(d,e)
+xa, xb = .245, .345
+ya, yb = 0.813, 0.913
+maxIt = 256
+cy = 0
+cx = 0
+for y in range(imgy):
+	cy = y * (yb-ya)/(imgy-1) + ya
+	for x in range(imgx):
+		cx = x * (xb-xa)/(imgx-1) + xa
+		z = complex(cx, cy)
 		for i in range(maxIt):
-			if jx*jx + jy*jy > 4 and i>1:
+			if abs(z) >= 2.0:
 				break
-			cat = jx*jx - jy*jy + jxa
-			jy,jx = 2.0*jx*jy + jxb, cat 
-		julia.putpixel((x, y), (0, i*36%256, i*672%256))
-
-#for y in range(imgy):
-#	jy = y/imgy
-#	for x in range(imgx):
-#		jx = x/imgx
-#		jo = complex(jx, jy)
-#		for i in range(maxIt):
-#			if abs(jo) >= 2:
-#				break
-#			jo = jo**2 + j
-#		image.putpixel((x, y), (0, i, 0))
-
-		#else:
-		#	image.putpixel((x,y), ((i*12)%256, i, (i*86)%256))
-
+			z = z**2 + c
+		julia.putpixel((x,y),(colorsys.rgb_to_hsv(i, 100, 50)))
+print("Julia Complete")
 
 image.show()
 julia.show()
