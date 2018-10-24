@@ -1,10 +1,12 @@
 #Mia Katz
 #10.24.18
 #Fractals Project
-#Sources: https://lodev.org/cgtutor/juliamandelbrot.html for learning what the Julia set actually is
+#The first project is a Mandelbrot, with an ombre pattern replacing anywhere that doesn't escape. It is layered with a small checkerboard for an added effect.
+#The second is a Julia with a blurred filter over it. It also has some alternating color stripes
+#The third is a mandelbrot divided into four squares. Two of them are very patterned, and the other two have a gradient and a smoothing filter over them!
+#Sources: https://lodev.org/cgtutor/juliamandelbrot.html for learning what the Julia set actually is, https://docs.python-guide.org/scenarios/imaging/ for help with Filters, and https://pillow.readthedocs.io/en/5.2.x/reference/ImageFilter.html for even more about the filters. https://www.atopon.org/mandel/# for the zooms on the mandelbrot, and https://www.cs.unm.edu/~stharding/julia/julia.html for the Julia shapes!
 
-from PIL import Image
-import colorsys
+from PIL import Image, ImageFilter
 xa, xb = 0.3038888888, 0.35888888
 ya, yb = 0.545, 0.6
 jxa, jxb = -0.6, 0.4
@@ -14,6 +16,7 @@ maxIt = 256
 
 image = Image.new("RGB", (imgx, imgy))
 julia = Image.new("RGB", (imgx, imgy))
+two = Image.new("RGB", (imgx, imgy))
 
 for y in range(imgy):
 	cy = y * (yb-ya)/(imgy-1) + ya
@@ -54,8 +57,35 @@ for y in range(imgy):
 			if abs(z) >= 2.0:
 				break
 			z = z**2 + c
-		julia.putpixel((x,y),(colorsys.rgb_to_hsv(i, 100, 50)))
+		if x< 103 or 206<=x<306 or x>409:
+			julia.putpixel((x,y),(i, 12, (i*68)%256))
+		else:
+			julia.putpixel((x,y), (i*68%256, i, 12))
+
 print("Julia Complete")
 
+xa, xb = -1.9425254, -1.9425244
+ya, yb = -0.0000132425, -0.000012279805
+
+for y in range(imgy):
+	cy = y * (yb-ya)/(imgy-1) + ya
+	for x in range(imgx):
+		cx = x * (xb-xa)/(imgx-1) + xa
+		c = complex(cx, cy)
+		z = 0
+		for i in range(maxIt):
+			if abs(z) >= 2.0:
+				break
+			z = z**2 + c
+		if (x > 256 and y > 256) or (x<256 and y<256):
+			two.putpixel((x, y), ((i*48)%256, (i*1982)%256, int(x/2)))
+		else:
+			two.putpixel((x,y), (i, int(y/2), int(x/2)))
+
+	   
+print("Done!")
+ju = julia.filter(ImageFilter.BLUR)
 image.show()
-julia.show()
+ju.show()
+tu = two.filter(ImageFilter.SMOOTH)
+tu.show()
