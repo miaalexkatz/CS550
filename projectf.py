@@ -1,10 +1,11 @@
 #Mia Katz
 #10.24.18
 #Fractals Project
+#On my honor, I've neither given nor received unauthorized aid 
 #The first project is a Mandelbrot, with an ombre pattern replacing anywhere that doesn't escape. It is layered with a small checkerboard for an added effect.
 #The second is a Julia with a blurred filter over it. It also has some alternating color stripes
 #The third is a mandelbrot divided into four squares. Two of them are very patterned, and the other two have a gradient and a smoothing filter over them!
-#Sources: https://lodev.org/cgtutor/juliamandelbrot.html for learning what the Julia set actually is, https://docs.python-guide.org/scenarios/imaging/ for help with Filters, and https://pillow.readthedocs.io/en/5.2.x/reference/ImageFilter.html for even more about the filters. https://www.atopon.org/mandel/# for the zooms on the mandelbrot, and https://www.cs.unm.edu/~stharding/julia/julia.html for the Julia shapes!
+#Sources: https://lodev.org/cgtutor/juliamandelbrot.html for learning what the Julia set actually is, https://docs.python-guide.org/scenarios/imaging/ for help with Filters, and https://pillow.readthedocs.io/en/5.2.x/reference/ImageFilter.html for even more about the filters. https://www.atopon.org/mandel/# for the zooms on the mandelbrot, and https://www.cs.unm.edu/~stharding/julia/julia.html for the Julia shapes
 
 from PIL import Image, ImageFilter
 xa, xb = 0.3038888888, 0.35888888 #This changes the zoom
