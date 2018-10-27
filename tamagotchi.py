@@ -1,4 +1,4 @@
-class Tamagotchi:
+class Dog:
 	#constructor (you need those little underscores when you write the initial statement)
 	def __init__(self, name):
 		self.fullness = 5
@@ -16,11 +16,12 @@ class Tamagotchi:
 			status = self.name+" played and had a great time!"
 			if self.energy == 0:
 				status += "\nNow they're very tired..."
-			if self.energy = 0:
+			if self.energy == 0:
 				status += "\n Now they're very hungry..."
-		elif self.energy = 0:
+		elif self.energy == 0:
 			status = "Oh no... "+self.name+" has starved to death"
-		or self.fullness = 0:
+		elif self.fullness == 0:
+			status = "Oh gosh! "+self.name+
 
 	def stats(self):
 		info = "Name: " + self.name
