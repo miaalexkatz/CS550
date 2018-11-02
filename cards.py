@@ -24,5 +24,5 @@ class Card:
 			rankprint = "Ace"
 
 	def __str__(self):
-		return str(rankprint + suitprint)
+		return str(self.rankprint + self.suitprint)
 
