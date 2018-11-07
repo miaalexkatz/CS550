@@ -19,33 +19,32 @@ for a in range(len(ex)):
 	print(*ex[a])
 selectedy = random.randrange(1, width, 1) #the values of the first selected cells
 selectedx = random.randrange(1, height, 1)
-selectedy = random.randrange(1, width, 1) #the values of the first selected cells
-selectedx = random.randrange(1, height, 1)
+print(selectedx,selectedy)
 while len(visitedcells) <= height*width:
-#	if complex(selectedx, selectedy) in visitedcells or complex(selectedx, selectedy) not in frontiercells:
-#		selectedy = random.randrange(1, width, 1) #the values of the first selected cells
-#		selectedx = random.randrange(1, height, 1)
-#	else: 
-	visitedcells.append(complex(selectedx, selectedy))	
-	if selectedx+1 != height+1 and selectedy+1 != height+1: #the if statements check that the value added to frontier is actually in the usable board
-		frontiercells.append(complex(selectedx+1, selectedy+1)) #this adds to the frontier list
-	if selectedx+1 != height+1 and selectedy-1 != 0:
-		frontiercells.append(complex(selectedx+1,selectedy-1))
-	if selectedx-1 != 0 and selectedy +1 != height+1:
-		frontiercells.append(complex(selectedx-1,selectedy+1))
-	if selectedx-1 != 0 and selectedy-1 != 0:
-		frontiercells.append(complex(selectedx-1,selectedy-1))
+	if (complex(selectedx, selectedy)) not in visitedcells:
+		visitedcells.append(complex(selectedx, selectedy))	
+
+	if selectedx+1 < height and complex(selectedx+1, selectedy) not in frontiercells and complex(selectedx+1, selectedy) not in visitedcells: #the if statements check that the value added to frontier is actually in the usable board
+		frontiercells.append(complex(selectedx+1, selectedy)) #this adds to the frontier list
+
+	if selectedy-1 > 0 and complex(selectedx, selectedy-1) not in frontiercells and complex(selectedx, selectedy-1) not in visitedcells:
+		frontiercells.append(complex(selectedx,selectedy-1))
+
+	if selectedx-1 > 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
+		frontiercells.append(complex(selectedx-1,selectedy))
+
+	if selectedy+1 < width and complex(selectedx, selectedy+1) not in frontiercells and complex(selectedx, selectedy+1) not in visitedcells:
+		frontiercells.append(complex(selectedx,selectedy+1))
+
 	chance = random.randint(0,3) #whether it will go up, down, left, right
 	if chance == 0:
 		if complex(selectedx,selectedy+1) in frontiercells: #go up
-			if selectedy+1 <height:
-				cells[selectedx][selectedy+1].downwall = False
-				cells[selectedx][selectedy].upwall = False
+			cells[selectedx][selectedy+1].downwall = False
+			cells[selectedx][selectedy].upwall = False
 	elif chance == 1:
 		if complex(selectedx+1,selectedy) in frontiercells: #right
-			if selectedx+1 <height:
-				cells[selectedx+1][selectedy].leftwall = False
-				cells[selectedx][selectedy].rightwall = False
+			cells[selectedx+1][selectedy].leftwall = False
+			cells[selectedx][selectedy].rightwall = False
 	elif chance == 2:
 		if complex(selectedx,selectedy-1) in frontiercells: #go down
 			cells[selectedx][selectedy-1].upwall = False
@@ -55,19 +54,23 @@ while len(visitedcells) <= height*width:
 		if complex(selectedx-1,selectedy) in frontiercells: #go left
 			cells[selectedx-1][selectedy].rightwall = False
 			cells[selectedx][selectedy].leftwall = False
-	number = random.randint(0, len(frontiercells)-1) #this picks the next values from the complex number stored in the frontier 
-	selectedx = frontiercells[number].real
-	selectedy = frontiercells[number].imag
-	frontiercells.pop(number)
+	if len(frontiercells) > 0:
+		number = random.randint(0, (len(frontiercells)-1)) #this picks the next values from the complex number stored in the frontier 
+		print(selectedx,selectedy, frontiercells)
+		selectedx = int(frontiercells[number].real) #these two functions convert the stored complex into values
+		selectedy = int(frontiercells[number].imag)
+		frontiercells.remove(complex(selectedx, selectedy))
+	else: 
+		break
 
-	print(selectedx,selectedy)
 for a in range(height):
 	for be in range(width):
 		cells[a][be].finish() 
-		ex[a][be] = str(cells[a][be].identity())
+#		ex[a][be] = str(cells[a][be].identity())
 for a in range(len(ex)):
 	print(*ex[a])
-#The problem right now: it checks everything randomly before it can continue and mia no
+print(visitedcells)
+#The next task: finish making it work
 
 
 
