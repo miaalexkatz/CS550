@@ -1,6 +1,5 @@
 import random 
 class Cell:
-
 	def __init__(self):
 		self.upwall = True
 		self.leftwall = True
@@ -10,19 +9,13 @@ class Cell:
 		self.frontier = False
 		self.adjacentchecks = 0
 		self.identity = "|_|"
-
-	def selected(self):
-		chance = random.randrange(4)
-		if chance < 1:
-			#go up
-
 	def finish(self):
 		if self.upwall == True:
 			if self.leftwall == True:
 				self.identity = "|  "
 			elif self.rightall == True:
 				self.identity = "  |"
-			elif self.downwall = True:
+			elif self.downwall == True:
 				self.identity = "___"
 		elif self.rightwall == True:
 			if self.leftwall == True:
@@ -40,4 +33,4 @@ class Cell:
 
 
 #to do: set the cell graphics (|_| and so on)
-
+#ask about making a list of all of the individual cell values for graphical reasons tomorrow, mia!!!!
