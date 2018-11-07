@@ -6,69 +6,68 @@ width = int(sys.argv[1])
 height = int(sys.argv[2])
 
 global ex
-ex = [['__|'] * (width+1) for x in range(height+1)]
-visitedcells = []
-frontiercells = []
+ex = [['.X.'] * (width+1) for x in range(height+1)] #this sets up the board in general, the .X. is a placeholder
+cells = [[Cell() for i in range(width)]for j in range(height)] #the previous line may be unnecessary
+visitedcells = [] #the list of cells that have been selected already
+frontiercells = [] #the list of cells on the frontier which can be selected next
 for x in range(height+1):
-	ex[x][0] = "|"
-for x in range(width):
+	ex[x][0] = "|" #left border
+for x in range(width): #top border
 	ex[0][x] = '____'
 #ex[0][width+1] = '_'
 for a in range(len(ex)):
 	print(*ex[a])
-selectedy = random.randrange(1, width)
-selectedx = random.randrange(1, height)
-print(selectedx)
-print(selectedy)
-oldx = selectedx
-oldy = selectedy
-oldcell = Cell()
-for x in range(width*height):
-	visitedcells.append(complex(oldx, oldy))
-	#if selectedx+1 != height+1 and selectedy+1 != height+1:
-	frontiercells.append(complex(selectedx+1, selectedy+1))
-	#if selectedx+1 != height+1 and selectedy-1 != 0:
-	frontiercells.append(complex(selectedx+1,selectedy-1))
-	#if selectedx-1 != 0 and selectedy +1 != height+1:
-	frontiercells.append(complex(selectedx-1,selectedy+1))
-	#if selectedx-1 != 0 and selectedy-1 != 0:
-	frontiercells.append(complex(selectedx-1,selectedy-1))
-	oldy = selectedx
-	oldy = selectedy
-	numero = random.randint(0, int(len(frontiercells)))
-	chance = random.randint(0,3)
-	newcell = Cell()
+selectedy = random.randrange(1, width, 1) #the values of the first selected cells
+selectedx = random.randrange(1, height, 1)
+selectedy = random.randrange(1, width, 1) #the values of the first selected cells
+selectedx = random.randrange(1, height, 1)
+while len(visitedcells) <= height*width:
+#	if complex(selectedx, selectedy) in visitedcells or complex(selectedx, selectedy) not in frontiercells:
+#		selectedy = random.randrange(1, width, 1) #the values of the first selected cells
+#		selectedx = random.randrange(1, height, 1)
+#	else: 
+	visitedcells.append(complex(selectedx, selectedy))	
+	if selectedx+1 != height+1 and selectedy+1 != height+1: #the if statements check that the value added to frontier is actually in the usable board
+		frontiercells.append(complex(selectedx+1, selectedy+1)) #this adds to the frontier list
+	if selectedx+1 != height+1 and selectedy-1 != 0:
+		frontiercells.append(complex(selectedx+1,selectedy-1))
+	if selectedx-1 != 0 and selectedy +1 != height+1:
+		frontiercells.append(complex(selectedx-1,selectedy+1))
+	if selectedx-1 != 0 and selectedy-1 != 0:
+		frontiercells.append(complex(selectedx-1,selectedy-1))
+	chance = random.randint(0,3) #whether it will go up, down, left, right
 	if chance == 0:
 		if complex(selectedx,selectedy+1) in frontiercells: #go up
-			newcell.downwall = False
-			oldcell.upwall = False
-			selectedy = selectedy+1
+			if selectedy+1 <height:
+				cells[selectedx][selectedy+1].downwall = False
+				cells[selectedx][selectedy].upwall = False
 	elif chance == 1:
 		if complex(selectedx+1,selectedy) in frontiercells: #right
-			#selectedx += 1
-			newcell.leftwall = False
-			oldcell.rightwall = False
-			selectedx = selectedx+1
-			#go right
+			if selectedx+1 <height:
+				cells[selectedx+1][selectedy].leftwall = False
+				cells[selectedx][selectedy].rightwall = False
 	elif chance == 2:
 		if complex(selectedx,selectedy-1) in frontiercells: #go down
-			newcell.upwall = False
-			oldcell.downwall = False
-			selectedy = selectedy-1
+			cells[selectedx][selectedy-1].upwall = False
+			cells[selectedx][selectedy].downwall = False
          #go down
 	elif chance == 3:
 		if complex(selectedx-1,selectedy) in frontiercells: #go left
-			newcell.rightwall = False
-			oldcell.leftwall = False
-			selected = selectedx-1
-	print(selectedx,selectedy)
+			cells[selectedx-1][selectedy].rightwall = False
+			cells[selectedx][selectedy].leftwall = False
+	number = random.randint(0, len(frontiercells)-1) #this picks the next values from the complex number stored in the frontier 
+	selectedx = frontiercells[number].real
+	selectedy = frontiercells[number].imag
+	frontiercells.pop(number)
 
-	aaa = oldcell.finish()
-	ex[oldx][oldy] = aaa
+	print(selectedx,selectedy)
+for a in range(height):
+	for be in range(width):
+		cells[a][be].finish() 
+		ex[a][be] = str(cells[a][be].identity())
 for a in range(len(ex)):
 	print(*ex[a])
-	print(aaa)
-
+#The problem right now: it checks everything randomly before it can continue and mia no
 
 
 
@@ -82,17 +81,5 @@ for a in range(len(ex)):
 #randomly select a cell
 #append cell to list of cells
 #when the len of the used cells list is equivalent to the total area it all prints.
-
-
-#chance = random.randint(3)
-#if chance < 1:
-#	print("hi")
-		#go up
-		#ex[xsel][ysel] 
-	#elif 1< chance
-
-
-
-
 
 #okay so here's the idea: when a cell is selected, it becomes selectedcell values. From there, it moves to oldcell values, and once oldcell, it receives an identity to be replaced into a maze board. 
