@@ -1,3 +1,8 @@
+#Mia Katz
+#Prim Algorithm Maze Generation
+#Sources: Idea for Maze Layout (plus/dash) http://www.delorie.com/game-room/mazes/genmaze.cgi, aka the first result for copy paste maze.
+
+
 import sys
 import random
 from mazecell import Cell
@@ -6,21 +11,21 @@ width = int(sys.argv[1])
 height = int(sys.argv[2])
 
 global ex
-ex = [['.X.'] * (width+1) for x in range(height+1)] #this sets up the board in general, the .X. is a placeholder
+ex = [[".X."] * (width) for x in range(height*2)] #this sets up the board in general
 cells = [[Cell() for i in range(width)]for j in range(height)] #the previous line may be unnecessary
 visitedcells = [] #the list of cells that have been selected already
 frontiercells = [] #the list of cells on the frontier which can be selected next
-for x in range(height+1):
+for x in range(height):
 	ex[x][0] = "|" #left border
 for x in range(width): #top border
 	ex[0][x] = '____'
 #ex[0][width+1] = '_'
 for a in range(len(ex)):
 	print(*ex[a])
-selectedy = random.randrange(1, width, 1) #the values of the first selected cells
-selectedx = random.randrange(1, height, 1)
+selectedy = random.randrange(0, width+1, 1) #the values of the first selected cells
+selectedx = random.randrange(1, height+1, 1)
 print(selectedx,selectedy)
-while len(visitedcells) <= height*width:
+while len(visitedcells) <= height+1*width+1:
 	if (complex(selectedx, selectedy)) not in visitedcells:
 		visitedcells.append(complex(selectedx, selectedy))	
 
@@ -30,7 +35,7 @@ while len(visitedcells) <= height*width:
 	if selectedy-1 > 0 and complex(selectedx, selectedy-1) not in frontiercells and complex(selectedx, selectedy-1) not in visitedcells:
 		frontiercells.append(complex(selectedx,selectedy-1))
 
-	if selectedx-1 > 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
+	if selectedx-1 >= 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
 		frontiercells.append(complex(selectedx-1,selectedy))
 
 	if selectedy+1 < width and complex(selectedx, selectedy+1) not in frontiercells and complex(selectedx, selectedy+1) not in visitedcells:
@@ -64,13 +69,15 @@ while len(visitedcells) <= height*width:
 		break
 
 for a in range(height):
+	cells[a][0].leftwall = True
 	for be in range(width):
 		cells[a][be].finish() 
-#		ex[a][be] = str(cells[a][be].identity())
+		ex[a+2][be] = cells[a][be]
+		cells[a][be].walls()
+		ex[a*2][be] = cells[a][be]
 for a in range(len(ex)):
 	print(*ex[a])
 print(visitedcells)
-#The next task: finish making it work
 
 
 
