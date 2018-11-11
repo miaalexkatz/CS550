@@ -21,19 +21,22 @@ selectedx = 0 #sets the start point in the corner
 selectedy = 0
 print(selectedx,selectedy)
 
-while len(visitedcells) <= (height+1)*(width+1):
+while len(visitedcells) <= ((height+1)*(width+1)):
 	chance0, chance1, chance2, chance3 = False, False, False, False
 	itWorked = False
-	#if selectedx != -1 and selectedy != -1:
 	visitedcells.append(complex(selectedx, selectedy))	
-	if selectedx+1 < height-1 and complex(selectedx+1, selectedy) not in frontiercells and complex(selectedx+1, selectedy) not in visitedcells: #the if statements check that the value added to frontier is actually in the usable board
+	if selectedx+1 < height and complex(selectedx+1, selectedy) not in frontiercells and complex(selectedx+1, selectedy) not in visitedcells: #the if statements check that the value added to frontier is actually in the usable board
 		frontiercells.append(complex(selectedx+1, selectedy)) #this adds to the frontier list
 
-	if selectedy > 0 and complex(selectedx, selectedy-1) not in frontiercells and complex(selectedx, selectedy-1) not in visitedcells:
+	if selectedy != 0 and complex(selectedx, selectedy-1) not in frontiercells and complex(selectedx, selectedy-1) not in visitedcells:
 		frontiercells.append(complex(selectedx,selectedy-1))
+	elif selectedy == 0:
+		frontiercells.append(complex(selectedx, selectedy+1))
 
-	if selectedx > 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
+	if selectedx != 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
 		frontiercells.append(complex(selectedx-1,selectedy))
+	elif selectedx == 0:
+		frontiercells.append(complex(selectedx+1, selectedy))
 
 	if selectedy+1 < width and complex(selectedx, selectedy+1) not in frontiercells and complex(selectedx, selectedy+1) not in visitedcells:
 		frontiercells.append(complex(selectedx,selectedy+1))
@@ -45,7 +48,7 @@ while len(visitedcells) <= (height+1)*(width+1):
 		if (chance0 == True and chance1 == True and chance2 == True and chance3 == True):
 			itWorked = True
 		elif chance == 0:
-			if complex(selectedx,selectedy+1) in visitedcells: #go up
+			if complex(selectedx,selectedy+1) in visitedcells: #go down
 				cells[selectedx][selectedy+1].upwall = False
 				cells[selectedx][selectedy].downwall = False
 				itWorked = True
@@ -89,8 +92,6 @@ for d in range(width):
 #	walls[c][width].rightwall = True
 #for be in range(width):
 #	walls[be][height].downwall = True
-cells[0][0].upwall = False
-walls[0][0].leftwall = False
 for x in range(height):
 	for y in range(width):
 		cells[x][y].finish()
@@ -104,8 +105,14 @@ for x in range(width):
 for y in range(height):
 	ex[(y*2)+1].insert(width, "|")
 	ex[(y*2)+1][0] = "|  "
-	ex[(y*2)+2].insert(width, ".")
+for i in range(height+1):
+	ex[(i*2)].insert(width, ".")
 #for a in range(width):
+ex[0][0]="   "
+ex[1][0]="   "
+ex[height*2][width]=".  "
+ex[height*2-1][width]="   "
+walls[0][0].leftwall = False
 for a in range(len(ex)):
 	print(*ex[a])
 
