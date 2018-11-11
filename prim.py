@@ -1,64 +1,78 @@
 #Mia Katz
 #Prim Algorithm Maze Generation
-#Sources: Idea for Maze Layout (plus/dash) http://www.delorie.com/game-room/mazes/genmaze.cgi, aka the first result for copy paste maze.
+#Sources: Idea for Maze Layout (plus/dash) http://www.delorie.com/game-room/mazes/genmaze.cgi, aka the first result for copy paste maze. Note: the layout has since changed, but still, this website was a major influence
 
 
 import sys
 import random
-from mazecell import Cell
+from mazecell import Cell, Walls
 
 width = int(sys.argv[1])
 height = int(sys.argv[2])
 
 global ex
-ex = [[".X."] * (width) for x in range(height*2)] #this sets up the board in general
+ex = [[".X."] * (width) for x in range(height*2+1)] #this sets up the board in general
+#test = [["hi"] * (width) for x in range(height)]
 cells = [[Cell() for i in range(width)]for j in range(height)] #the previous line may be unnecessary
+walls = [[Walls() for i in range(width)] for j in range(height)]
 visitedcells = [] #the list of cells that have been selected already
 frontiercells = [] #the list of cells on the frontier which can be selected next
-for x in range(height):
-	ex[x][0] = "|" #left border
-for x in range(width): #top border
-	ex[0][x] = '____'
-#ex[0][width+1] = '_'
-for a in range(len(ex)):
-	print(*ex[a])
-selectedy = random.randrange(0, width+1, 1) #the values of the first selected cells
-selectedx = random.randrange(1, height+1, 1)
+selectedx = 0 #sets the start point in the corner
+selectedy = 0
 print(selectedx,selectedy)
-while len(visitedcells) <= height+1*width+1:
-	if (complex(selectedx, selectedy)) not in visitedcells:
-		visitedcells.append(complex(selectedx, selectedy))	
 
-	if selectedx+1 < height and complex(selectedx+1, selectedy) not in frontiercells and complex(selectedx+1, selectedy) not in visitedcells: #the if statements check that the value added to frontier is actually in the usable board
+while len(visitedcells) <= (height+1)*(width+1):
+	chance0, chance1, chance2, chance3 = False, False, False, False
+	itWorked = False
+	#if selectedx != -1 and selectedy != -1:
+	visitedcells.append(complex(selectedx, selectedy))	
+	if selectedx+1 < height-1 and complex(selectedx+1, selectedy) not in frontiercells and complex(selectedx+1, selectedy) not in visitedcells: #the if statements check that the value added to frontier is actually in the usable board
 		frontiercells.append(complex(selectedx+1, selectedy)) #this adds to the frontier list
 
-	if selectedy-1 > 0 and complex(selectedx, selectedy-1) not in frontiercells and complex(selectedx, selectedy-1) not in visitedcells:
+	if selectedy > 0 and complex(selectedx, selectedy-1) not in frontiercells and complex(selectedx, selectedy-1) not in visitedcells:
 		frontiercells.append(complex(selectedx,selectedy-1))
 
-	if selectedx-1 >= 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
+	if selectedx > 0 and complex(selectedx-1, selectedy) not in frontiercells and complex(selectedx-1, selectedy) not in visitedcells:
 		frontiercells.append(complex(selectedx-1,selectedy))
 
 	if selectedy+1 < width and complex(selectedx, selectedy+1) not in frontiercells and complex(selectedx, selectedy+1) not in visitedcells:
 		frontiercells.append(complex(selectedx,selectedy+1))
-
-	chance = random.randint(0,3) #whether it will go up, down, left, right
-	if chance == 0:
-		if complex(selectedx,selectedy+1) in frontiercells: #go up
-			cells[selectedx][selectedy+1].downwall = False
-			cells[selectedx][selectedy].upwall = False
-	elif chance == 1:
-		if complex(selectedx+1,selectedy) in frontiercells: #right
-			cells[selectedx+1][selectedy].leftwall = False
-			cells[selectedx][selectedy].rightwall = False
-	elif chance == 2:
-		if complex(selectedx,selectedy-1) in frontiercells: #go down
-			cells[selectedx][selectedy-1].upwall = False
-			cells[selectedx][selectedy].downwall = False
+	while itWorked != True:
+		if len(visitedcells) != (height+1)*(width+1):
+			#if selectedx != 0 and selectedy != 0:
+			#if selectedx != 0 and selectedy != 0 and selectedy != height-1 and selectedx != width-1:
+			chance = random.randint(0,3) #whether it will go up, down, left, right
+		if (chance0 == True and chance1 == True and chance2 == True and chance3 == True):
+			itWorked = True
+		elif chance == 0:
+			if complex(selectedx,selectedy+1) in visitedcells: #go up
+				cells[selectedx][selectedy+1].upwall = False
+				cells[selectedx][selectedy].downwall = False
+				itWorked = True
+			chance0 = True
+		elif chance == 2:
+			if complex(selectedx-1,selectedy) in visitedcells: #right
+				walls[selectedx-1][selectedy].rightwall = False
+				walls[selectedx][selectedy].leftwall = False
+				itWorked = True
+			chance2 = True
+		elif chance == 1:
+			if complex(selectedx,selectedy-1) in visitedcells: #go down
+				cells[selectedx][selectedy-1].downwall = False
+				cells[selectedx][selectedy].upwall = False
+				itWorked = True
+			chance1 = True
          #go down
-	elif chance == 3:
-		if complex(selectedx-1,selectedy) in frontiercells: #go left
-			cells[selectedx-1][selectedy].rightwall = False
-			cells[selectedx][selectedy].leftwall = False
+		elif chance == 3: 
+			if complex(selectedx+1,selectedy) in visitedcells: #go left
+				walls[selectedx+1][selectedy].leftwall = False
+				walls[selectedx][selectedy].rightwall = False
+				itWorked = True
+			chance3 = True
+#		print(chance0, chance1, chance2, chance3)
+#	for g in range(height):
+#		if selectedx == 0:
+#			walls[0][g].leftwall = True
 	if len(frontiercells) > 0:
 		number = random.randint(0, (len(frontiercells)-1)) #this picks the next values from the complex number stored in the frontier 
 		print(selectedx,selectedy, frontiercells)
@@ -67,16 +81,35 @@ while len(visitedcells) <= height+1*width+1:
 		frontiercells.remove(complex(selectedx, selectedy))
 	else: 
 		break
+for c in range(int(height/2)):
+	walls[c][0].leftwall = True
+for d in range(width):
+	cells[height-1][d].downwall = True
+#for c in range((height*2)-2):
+#	walls[c][width].rightwall = True
+#for be in range(width):
+#	walls[be][height].downwall = True
+cells[0][0].upwall = False
+walls[0][0].leftwall = False
+for x in range(height):
+	for y in range(width):
+		cells[x][y].finish()
+		walls[x][y].walls()
 
-for a in range(height):
-	cells[a][0].leftwall = True
-	for be in range(width):
-		cells[a][be].finish() 
-		ex[a+2][be] = cells[a][be]
-		cells[a][be].walls()
-		ex[a*2][be] = cells[a][be]
+for x in range(width):
+	ex[0][x] = ".--"
+	for y in range(height):
+		ex[(y*2)+1][x] = walls[y][x]
+		ex[(y*2)+2][x] = cells[y][x]
+for y in range(height):
+	ex[(y*2)+1].insert(width, "|")
+	ex[(y*2)+1][0] = "|  "
+	ex[(y*2)+2].insert(width, ".")
+#for a in range(width):
 for a in range(len(ex)):
 	print(*ex[a])
+
+print(len(visitedcells))
 print(visitedcells)
 
 
