@@ -20,9 +20,9 @@ for z in range(width):
 	for i in range(first):
 		RGB = pix[z,i]
 		R,G,B = RGB
-		oR = .900*R
-		oG = .614*G
-		oB = .272*B
+		oR = .001*R
+		oG = .794*G
+		oB = .0*B
 		if oR < 255:
 			oR = int(oR)
 		else:
@@ -42,9 +42,9 @@ for z in range(width):
 	for i in range(first, second):
 		RGB = pix[z,i]
 		R,G,B = RGB
-		oR = .793*R
-		oG = .149*G
-		oB = .382*B
+		oR = .794*R
+		oG = .0*G
+		oB = .794*B
 		if oR < 255:
 			oR = int(oR)
 		else:
@@ -57,17 +57,19 @@ for z in range(width):
 			oB = int(oB)
 		else:
 			oB = 255
-		if z+100 < width:
-			use.putpixel((z,i), (oR, oG, oB))
+		if z+50 < width:
+			use.putpixel((z+50,i), (oR, oG, oB))
+		else:
+			use.putpixel((z, i), (R,G,B))
 		#print(oR,oG,oB)
 print("two")
 for z in range(width):
 	for i in range(second, third):
 		RGB = pix[z,i]
 		R,G,B = RGB
-		oR = .723*R
-		oG = .886*G
-		oB = .392*B
+		oR = .794*R
+		oG = .0*G
+		oB = .0*B
 		if oR < 255:
 			oR = int(oR)
 		else:
@@ -88,9 +90,9 @@ for z in range(width):
 	for i in range(third, fourth):
 		RGB = pix[z,i]
 		R,G,B = RGB
-		oR = .223*R
-		oG = .623*G
-		oB = .242*B
+		oR = .0*R
+		oG = .794*G
+		oB = .794*B
 		if oR < 255:
 			oR = int(oR)
 		else:
@@ -109,9 +111,9 @@ for z in range(width):
 	for i in range(fourth, fifth):
 		RGB = pix[z,i]
 		R,G,B = RGB
-		oR = .923*R
-		oG = .983*G
-		oB = .712*B
+		oR = .794*R
+		oG = .794*G
+		oB = .794*B
 		if oR < 255:
 			oR = int(oR)
 		else:
@@ -132,9 +134,9 @@ for z in range(width):
 	for i in range(fifth, height):
 		RGB = pix[z,i]
 		R,G,B = RGB
-		oR = .237*R
-		oG = .123*G
-		oB = .242*B
+		oR = .794*R
+		oG = .794*G
+		oB = .0*B
 		if oR < 255:
 			oR = int(oR)
 		else:
@@ -148,6 +150,8 @@ for z in range(width):
 		else:
 			oB = 255
 		use.putpixel((z,i), (oR, oG, oB))
+
+
 use.show()
 
 
