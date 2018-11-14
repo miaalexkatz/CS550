@@ -1,7 +1,7 @@
 from PIL import Image
 import random
 
-un = Image.open("cav.jpg")
+un = Image.open("lighthouse.jpeg")
 width, height = un.size
 use = Image.new("RGB", (width, height))
 pix = un.load()
@@ -126,8 +126,8 @@ for z in range(width):
 			oB = int(oB)
 		else:
 			oB = 255
-		if z+50 < height:
-			use.putpixel((z+20,i), (oR, oG, oB))
+		if z-100 >= 0:
+			use.putpixel((z-100,i), (oR, oG, oB))
 		else:
 			use.putpixel((z, i), (R, G, B))
 for z in range(width):
