@@ -23,7 +23,7 @@
 '''
 class Point:
 
-	def__init__self(self, x, y):
+	def __init__(self, x, y):
 		self.x = x
 		self.y = y
 
@@ -88,15 +88,19 @@ class Point:
 '''
 class Student():
 
-	def__init__self(self):
+	def __init__(self):
 		self.energy = 90
 		self.hunger = 50
 		self.stress = 10
 		self.hours = 0
 
 	def study(self, timespec):
-		if hours+timespec >= 24:
+		if hours+timespec > 24:
 			status = "Sorry, you can only do 24 hours of activity a day!"
+		elif energy-timespec*8 <= 0:
+			status = "You need sleep!"
+		elif hunger+timespec*8 >= 100:
+			status = "No! Eat!"
 		else:
 			energy -= timespec*8
 			hunger += timespec*8
@@ -105,9 +109,55 @@ class Student():
 	def sports(self, timespec):
 		if hours+timespec >= 24:
 			status = "Sorry, you can only do 24 hours of activity a day!"
+		elif energy-timespec*11 <= 0:
 		else: 
+			hours += timespec
+			stress -= timespec*11
+			energy -= timespec*10
+			hunger += timespec*8
 
+	def take_test(self):
+		if hours+1 > 24:
+			status = "Sorry, you can only do 24 hours of activity a day!"
+		elif stress+33 >= 100:
+			status = "You should probably go to the health center..."
+		else:
+			hours += 1
+			stress += 33
 
+	def submit_paper(self, timespec):
+		if hours+timespec >= 24:
+			status = "Sorry, you can only do 24 hours of activity a day!"
+		else:
+			stress -= 30
+
+	def eat_meal(self, timespec):
+		if hours+timespec >= 24:
+			status = "Sorry, you can only do 24 hours of activity a day!"
+		if hunger - timepec*50<0:
+			status = "that's a lot of food, you didn't finish it all"
+			hunger = 0
+		else:
+			hunger -= timespec*50
+		if energy += 40*timespec > 100:
+			status = "woah! you're super energized"
+			energy = 100
+		else:
+			energy += timespec*40
+
+		hours += timespec
+			stress -= 20*timespec
+
+	def sleep(self, timespec):
+		if hours+timespec >= 24:
+			status = "Sorry, you can only do 24 hours of activity a day!"
+		else:
+			self.energy += timespec*11
+			self.hunger += timespec *6
+			self.stress -= timespec*6
+			  
+	def newday(self):
+		self.hours = 0
 
 
 
