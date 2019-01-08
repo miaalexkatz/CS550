@@ -61,3 +61,6 @@ for i in range(5000):
 			carcount+= 1
 
 print(carcount)
+
+
+#In this situation, by switching your choice, your chance of winning the car doubles from 33% to 66%. When I ran 5000 trials, switching restuled in a car about 3200, but keeping my choice halved the won cars. It's a wiser idea to switch because surely, if the available door was not removed, you know that it will serve some value. The chances of each door holding a prize are 33%, so when you first choose you are completely blind. However, there's also only a 33% chance that both of the remaining doors have cars behind them, and a 66% chance that one holds the car. Therefore, it's more likely for you to find the car behind the non-selected door because it's twice as likely that the host had only one penny door to open than two.
