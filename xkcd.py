@@ -6,6 +6,7 @@
 #50-65% water
 #one campfire takes about 3 gallons to extinguish: this is about .04L per square centimeter. It's generated to be slightly on the higher side, to ensure that your fire is not risky.
 #weight of a person in kg will account for L of water, in a thankfully simple conversion.
+#On my honor, I've neither given nor received unauthorized aid
 import random
 import matplotlib.pyplot as plt
 
