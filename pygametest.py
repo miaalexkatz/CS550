@@ -1,5 +1,6 @@
 #PyGame Code Examples!
 #Mia Katz, E Block, On my honor, I have neither given nor received unauthorized aid
+#Sources: www.pygame.org/docs and pygametutorials.wikidot.com/tutorials
 
 #Welcome to the interactive introduction to PyGame! Today, you'll see some examples on setting up PyGame, drawing some shapes and/or text, playing some music, importing images, and processing events! First, import the module.
 
@@ -26,7 +27,7 @@ white = (255, 255, 255)
 blue = (0, 0, 255)
 green = (0, 255, 0)
 
-#This is actually the Surface.fill() function. However, you must replace "Surface" with the name of the display.
+#This is actually the Surface.fill() function. However, you must replace "Surface" with the name of the display. screen is my display name
 screen.fill(white)
 
 #DRAWING-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,18 +60,16 @@ pygame.draw.polygon(screen, red, ((50, 280), (200, 280), (125, 240)))
 #IMAGES -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #First, you must load the image and store it in a variable
-testimage = pygame.image.load('cavs.png')
-#from there, Surface.blit() will place it for you. Remember to put the destination in parentheses
+
+testimage = pygame.image.load('cavs.png') #from there, Surface.blit() will place it for you. Remember to put the destination in parentheses
 screen.blit(testimage, (0, 0))
 
 #TEXT--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#First, you must initialize the module. However, this is included in PyGame's init().
-t = pygame.font.SysFont('arial', 36)
-#variable = pygame.font.SysFont('font_name', size)
-exam = t.render("test", True, (0, 255, 0))
-#other = variable.render("text", True, (color))
-screen.blit(exam, (200, 300))
+#First, you must initialize the module. However, this is included in PyGame's init(), so it's not needed.
+t = pygame.font.SysFont('arial', 56).               #variable = pygame.font.SysFont('font_name', size)
+exam = t.render("hello", True, (0, 255, 0))         #other = variable.render("text", True, (color))
+screen.blit(exam, (200, 100))
 
 #MUSIC--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -103,10 +102,11 @@ while not done:
 #consider that the rest of the images drawn earlier are not redrawn because they are not "redrawn" in this infinite loop. if they were to be redrawn, you would place them here.
 
 #This second event is a key press event. PyGame can differentiate between keys, but you must nest the checks inside of a main key check.
-		if event.type == pygame.KEYDOWN: #checks for the press of a key. KEYUP will check for the release
-			if event.key == pygame.K_SPACE: #This checks for the individual key. Note that it begins with K_
+		if event.type == pygame.KEYDOWN:                 #checks for the press of a key. KEYUP will check for the release
+			if event.key == pygame.K_SPACE:              #This checks for the individual key. Note that it begins with K_. The a key would be K_a, for example
 				screen.fill(red)
-			elif event.key == pygame.K_RETURN: #The main keycheck is capable of processing all of the keys. 
+
+			elif event.key == pygame.K_RETURN:           #The main keycheck is capable of processing all of the keys. 
 				screen.fill(blue)
 
 #ONE FINAL PART TO THIS LOOP-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,4 +114,4 @@ while not done:
 	pygame.display.flip() #flip() updates the game window! update() will also work in its place. it must remain in the infinite while loop
 #drawing a rectangle
 
-#Thank you for reading this interactive tutorial!
+#Thank you for reading this interactive tutorial!Have fun repeatedly clicking to expand the green rectangle!
