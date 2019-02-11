@@ -14,7 +14,7 @@ pygame.init()
 
 #Sets the dimensions of the display window. 400 and 300 may be replaced with whatever you'd like. 
 #Note that this must be stored in a variable so it may be reused in almost every other function. It will replace "Surface" in surface functions.
-screen = pygame.display.set_mode((400, 300)) 
+screen = pygame.display.set_mode((1000, 700)) 
 
 #Changes the name of the game window. 
 pygame.display.set_caption('Examples') 
@@ -67,9 +67,11 @@ screen.blit(testimage, (0, 0))
 #TEXT--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #First, you must initialize the module. However, this is included in PyGame's init(), so it's not needed.
-t = pygame.font.SysFont('arial', 56).               #variable = pygame.font.SysFont('font_name', size)
-exam = t.render("hello", True, (0, 255, 0))         #other = variable.render("text", True, (color))
-screen.blit(exam, (200, 100))
+#t = pygame.font.SysFont('arial', 56).        
+       ##variable = pygame.font.SysFont('font_name', size)
+#exam = t.render("hello", True, (0, 255, 0))        
+ #other = variable.render("text", True, (color))
+#screen.blit(exam, (200, 100))
 
 #MUSIC--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
