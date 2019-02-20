@@ -101,6 +101,11 @@ while not done:
 		if event.type == pygame.MOUSEBUTTONDOWN: #It checks for the press of a click. MOUSEBUTTONUP will check for the release. MOUSEMOTION checks for cursor motion.
 			rectx += 10
 			pygame.draw.rect(screen, green, (rectx, 100, 50, 70)) 
+			f = pygame.mouse.get_pos()
+			print(f)
+			mousex, mousey = f
+			print(mousey)
+			print(mousex)
 #consider that the rest of the images drawn earlier are not redrawn because they are not "redrawn" in this infinite loop. if they were to be redrawn, you would place them here.
 
 #This second event is a key press event. PyGame can differentiate between keys, but you must nest the checks inside of a main key check.
